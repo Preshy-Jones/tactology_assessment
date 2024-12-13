@@ -15,6 +15,8 @@ export class SubDepartment {
 
   @ManyToOne(() => Department, (department) => department.subDepartments, {
     onDelete: 'CASCADE',
+    nullable: true,
   })
-  department: Department;
+  @Field(() => Department, { nullable: true })
+  department?: Department;
 }

@@ -15,17 +15,12 @@ export class DepartmentService {
   ) {}
 
   async createDepartment(input: CreateDepartmentInput): Promise<Department> {
-    const department = new Department();
-    department.name = input.name;
-
-    if (input.subDepartments && input.subDepartments.length > 0) {
-      department.subDepartments = input.subDepartments.map((subDept) => {
-        const subDepartment = new SubDepartment();
-        subDepartment.name = subDept.name;
-        subDepartment.department = department;
-        return subDepartment;
-      });
-    }
+    const department = this.departmentRepository.create({
+      name: input.name,
+      subDepartments: input.subDepartments?.map((subDept) =>
+        this.subDepartmentRepository.create({ name: subDept.name }),
+      ),
+    });
 
     return this.departmentRepository.save(department);
   }

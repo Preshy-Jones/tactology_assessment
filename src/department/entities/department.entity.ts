@@ -17,6 +17,7 @@ export class Department {
   @OneToMany(() => SubDepartment, (subDepartment) => subDepartment.department, {
     cascade: true,
     eager: true,
+    onDelete: 'CASCADE',
   })
   subDepartments?: SubDepartment[];
 }

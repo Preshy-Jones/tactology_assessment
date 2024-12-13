@@ -5,6 +5,7 @@
 type SubDepartment {
   id: ID!
   name: String!
+  department: Department
 }
 
 type Department {
@@ -35,15 +36,15 @@ type LoginResponse {
 }
 
 type Query {
-  getDepartments: [Department!]!
+  GetDepartments: [Department!]!
   getUserByUsername(username: String!): User
   getAllUsers: [User!]!
 }
 
 type Mutation {
-  createDepartment(input: CreateDepartmentInput!): Department!
-  updateDepartment(id: Int!, name: String!): Department!
-  deleteDepartment(id: Int!): Boolean!
+  CreateDepartment(input: CreateDepartmentInput!): Department!
+  UpdateDepartment(id: Int!, name: String!): Department!
+  DeleteDepartment(id: Int!): Boolean!
   registerUser(input: CreateUserInput!): User!
   login(username: String!, password: String!): LoginResponse!
 }

@@ -3,26 +3,25 @@ import { UseGuards } from '@nestjs/common';
 import { DepartmentService } from './department.service';
 import { Department } from './entities/department.entity';
 import { CreateDepartmentInput } from './dto/create-department.input';
-import { JwtAuthGuard } from 'src/common/guards/jwt-auth.guard';
 
 @Resolver(() => Department)
 export class DepartmentResolver {
   constructor(private departmentService: DepartmentService) {}
 
   @Mutation(() => Department)
-  createDepartment(
+  CreateDepartment(
     @Args('input') input: CreateDepartmentInput,
   ): Promise<Department> {
     return this.departmentService.createDepartment(input);
   }
 
   @Query(() => [Department])
-  getDepartments(): Promise<Department[]> {
+  GetDepartments(): Promise<Department[]> {
     return this.departmentService.getDepartments();
   }
 
   @Mutation(() => Department)
-  updateDepartment(
+  UpdateDepartment(
     @Args('id', { type: () => Int }) id: number,
     @Args('name') name: string,
   ): Promise<Department> {
@@ -30,7 +29,7 @@ export class DepartmentResolver {
   }
 
   @Mutation(() => Boolean)
-  deleteDepartment(
+  DeleteDepartment(
     @Args('id', { type: () => Int }) id: number,
   ): Promise<boolean> {
     return this.departmentService.deleteDepartment(id);

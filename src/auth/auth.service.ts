@@ -20,6 +20,14 @@ export class AuthService {
 
   async validateUser(username: string, password: string): Promise<User | null> {
     const user = await this.userRepository.findOne({ where: { username } });
+
+    if (!user) {
+      throw new HttpException(
+        'No user with that email exists in our records',
+        HttpStatus.NOT_FOUND,
+      );
+    }
+
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
       throw new HttpException('Invalid Password', HttpStatus.UNAUTHORIZED);
