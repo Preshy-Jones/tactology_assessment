@@ -13,11 +13,11 @@ async function bootstrap() {
     credentials: true,
     // all headers that client are allowed to use
     allowedHeaders: [
-      'Accept',
-      'Authorization',
       'Content-Type',
+      'Authorization',
       'X-Requested-With',
-      'apollo-require-preflight',
+      'Accept',
+      'Origin',
       'x-apollo-operation-name',
     ],
     methods: ['GET', 'PUT', 'POST', 'DELETE', 'OPTIONS'],
