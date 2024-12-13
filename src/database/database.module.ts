@@ -19,7 +19,7 @@ import DatabaseLogger from './database-logger';
         username: configService.get('POSTGRES_USER'),
         password: configService.get('POSTGRES_PASSWORD'),
         database: configService.get('POSTGRES_DB'),
-        ssl: configService.get('NODE_ENV') === 'dev' ? false : true,
+        // ssl: configService.get('NODE_ENV') === 'dev' ? false : true,
         entities: [Log],
         migrations: ['dist/migrations/**/*{.ts,.js}'],
         cli: {
@@ -27,7 +27,6 @@ import DatabaseLogger from './database-logger';
         },
         synchronize: true,
         migrationsRun: true,
-
         autoLoadEntities: true,
       }),
     }),

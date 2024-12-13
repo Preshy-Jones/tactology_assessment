@@ -15,10 +15,10 @@ async function bootstrap() {
   );
   app.useGlobalInterceptors(new ClassSerializerInterceptor(app.get(Reflector)));
   const config = new DocumentBuilder()
-    .setTitle('Skill2rural example')
-    .setDescription('The Skill2rural API description')
+    .setTitle('Tactology API')
+    .setDescription('The Tactology API')
     .setVersion('1.0')
-    .addTag('skill2rural')
+    .addTag('tactology')
     .addBearerAuth()
     .build();
   const document = SwaggerModule.createDocument(app, config);

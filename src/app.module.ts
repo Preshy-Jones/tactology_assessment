@@ -10,6 +10,8 @@ import { AuthModule } from './auth/auth.module';
 import * as Joi from 'joi';
 import { ConfigModule } from '@nestjs/config';
 import { DatabaseModule } from './database/database.module';
+import { JwtAuthGuard } from './common/guards/jwt-auth.guard';
+import { APP_GUARD } from '@nestjs/core';
 @Module({
   imports: [
     GraphQLModule.forRoot<ApolloDriverConfig>({
@@ -24,11 +26,8 @@ import { DatabaseModule } from './database/database.module';
         POSTGRES_PASSWORD: Joi.string().required(),
         POSTGRES_DB_PORT: Joi.number().required(),
         POSTGRES_DB_HOST: Joi.string().required(),
-        PGADMIN_DEFAULT_EMAIL: Joi.string().required(),
         JWT_SECRET: Joi.string().required(),
         JWT_EXPIRATION: Joi.string().required(),
-        REDIS_HOST: Joi.string().required(),
-        REDIS_PORT: Joi.string().required(),
       }),
     }),
     DatabaseModule,
@@ -37,6 +36,12 @@ import { DatabaseModule } from './database/database.module';
     AuthModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+    {
+      provide: APP_GUARD,
+      useClass: JwtAuthGuard,
+    },
+  ],
 })
 export class AppModule {}

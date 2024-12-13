@@ -1,3 +1,4 @@
+import { Field, ID } from '@nestjs/graphql';
 import {
   PrimaryGeneratedColumn,
   CreateDateColumn,
@@ -6,7 +7,8 @@ import {
 
 export abstract class EntityContainer {
   @PrimaryGeneratedColumn()
-  public id: number;
+  @Field(() => ID)
+  id: number;
 
   @CreateDateColumn()
   createddate: Date;
