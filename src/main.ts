@@ -15,6 +15,7 @@ async function bootstrap() {
       'Content-Type',
       'X-Requested-With',
       'apollo-require-preflight',
+      'x-apollo-operation-name',
     ],
     methods: ['GET', 'PUT', 'POST', 'DELETE', 'OPTIONS'],
   });
