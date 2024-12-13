@@ -6,7 +6,10 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.enableCors({
-    origin: '*',
+    origin: [
+      'http://localhost:3000',
+      'https://tactology-assessment-fe.vercel.app',
+    ],
     credentials: true,
     // all headers that client are allowed to use
     allowedHeaders: [
