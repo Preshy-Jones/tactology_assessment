@@ -24,7 +24,7 @@ This is a NestJS-based backend application with GraphQL, TypeORM, and PostgreSQL
 ## Prerequisites
 - Node.js (v18+)
 - PostgreSQL
-- npm or yarn
+- npm
 
 ## Installation
 
