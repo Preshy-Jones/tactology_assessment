@@ -17,6 +17,11 @@ import { APP_GUARD } from '@nestjs/core';
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
+      playground: true, // Enable playground
+      introspection: true, // Important for playground to work in production
+      csrfPrevention: {
+        requestHeaders: ['content-type'], // Customize CSRF prevention
+      },
     }),
     ConfigModule.forRoot({
       isGlobal: true,
