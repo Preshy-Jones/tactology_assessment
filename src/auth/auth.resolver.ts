@@ -9,7 +9,7 @@ export class AuthResolver {
 
   @Public()
   @Mutation(() => LoginResponse)
-  async login(
+  async Login(
     @Args('username') username: string,
     @Args('password') password: string,
   ) {

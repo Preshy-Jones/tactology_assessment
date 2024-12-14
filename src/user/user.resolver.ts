@@ -12,7 +12,7 @@ export class UserResolver {
 
   @Public()
   @Mutation(() => User)
-  async registerUser(@Args('input') input: CreateUserInput): Promise<User> {
+  async RegisterUser(@Args('input') input: CreateUserInput): Promise<User> {
     return this.userService.registerUser(input);
   }
 
@@ -26,7 +26,7 @@ export class UserResolver {
 
   // @UseGuards(JwtAuthGuard)
   @Query(() => [User])
-  async getAllUsers(): Promise<User[]> {
+  async GetAllUsers(): Promise<User[]> {
     return this.userService.getAllUsers();
   }
 }

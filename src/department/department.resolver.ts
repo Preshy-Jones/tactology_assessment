@@ -1,5 +1,4 @@
 import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
-import { UseGuards } from '@nestjs/common';
 import { DepartmentService } from './department.service';
 import { Department } from './entities/department.entity';
 import { CreateDepartmentInput } from './dto/create-department.input';
@@ -10,6 +9,8 @@ import {
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
+import { SubDepartment } from './entities/sub-department.entity';
+import { UpdateDepartmentInput } from './dto/update-department.input';
 
 @ApiTags('Department')
 @Resolver(() => Department)
@@ -45,10 +46,9 @@ export class DepartmentResolver {
   @ApiBearerAuth()
   @Mutation(() => Department)
   UpdateDepartment(
-    @Args('id', { type: () => Int }) id: number,
-    @Args('name') name: string,
+    @Args('input') input: UpdateDepartmentInput,
   ): Promise<Department> {
-    return this.departmentService.updateDepartment(id, name);
+    return this.departmentService.updateDepartment(input);
   }
 
   @ApiOperation({ summary: 'Delete Department' })
@@ -59,5 +59,32 @@ export class DepartmentResolver {
     @Args('id', { type: () => Int }) id: number,
   ): Promise<boolean> {
     return this.departmentService.deleteDepartment(id);
+  }
+
+  //update sub-department
+  @Mutation(() => SubDepartment)
+  UpdateSubDepartment(
+    @Args('id', { type: () => Int }) id: number,
+    @Args('name') name: string,
+  ): Promise<SubDepartment> {
+    return this.departmentService.updateSubDepartment(id, name);
+  }
+
+  //delete sub-department
+  @Mutation(() => Boolean)
+  DeleteSubDepartment(
+    @Args('id', { type: () => Int }) id: number,
+    @Args('subDepartmentId', { type: () => Int }) subDepartmentId: number,
+  ): Promise<boolean> {
+    return this.departmentService.deleteSubDepartment(id, subDepartmentId);
+  }
+
+  // Add new sub-department
+  @Mutation(() => SubDepartment)
+  AddSubDepartment(
+    @Args('departmentId', { type: () => Int }) id: number,
+    @Args('name') name: string,
+  ): Promise<SubDepartment> {
+    return this.departmentService.addSubDepartment(id, name);
   }
 }

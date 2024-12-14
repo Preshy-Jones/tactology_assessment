@@ -38,15 +38,18 @@ type LoginResponse {
 type Query {
   GetDepartments: [Department!]!
   getUserByUsername(username: String!): User
-  getAllUsers: [User!]!
+  GetAllUsers: [User!]!
 }
 
 type Mutation {
   CreateDepartment(input: CreateDepartmentInput!): Department!
-  UpdateDepartment(id: Int!, name: String!): Department!
+  UpdateDepartment(input: UpdateDepartmentInput!): Department!
   DeleteDepartment(id: Int!): Boolean!
-  registerUser(input: CreateUserInput!): User!
-  login(username: String!, password: String!): LoginResponse!
+  UpdateSubDepartment(id: Int!, name: String!): SubDepartment!
+  DeleteSubDepartment(id: Int!, subDepartmentId: Int!): Boolean!
+  AddSubDepartment(departmentId: Int!, name: String!): SubDepartment!
+  RegisterUser(input: CreateUserInput!): User!
+  Login(username: String!, password: String!): LoginResponse!
 }
 
 input CreateDepartmentInput {
@@ -55,7 +58,14 @@ input CreateDepartmentInput {
 }
 
 input CreateSubDepartmentInput {
+  id: Int
   name: String!
+}
+
+input UpdateDepartmentInput {
+  name: String
+  subDepartments: [CreateSubDepartmentInput!]
+  id: Int!
 }
 
 input CreateUserInput {
