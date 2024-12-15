@@ -2,7 +2,7 @@ import { ObjectType, Field, Int } from '@nestjs/graphql';
 import { Department } from '../entities/department.entity';
 
 @ObjectType()
-export class DepartmentPaginationResponse {
+export class PaginatedDepartments {
   @Field(() => [Department])
   departments: Department[];
 
@@ -11,6 +11,9 @@ export class DepartmentPaginationResponse {
 
   @Field(() => Int)
   page: number;
+
+  @Field(() => Int)
+  limit: number;
 
   @Field(() => Int)
   totalPages: number;

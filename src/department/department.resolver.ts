@@ -11,6 +11,7 @@ import {
 } from '@nestjs/swagger';
 import { SubDepartment } from './entities/sub-department.entity';
 import { UpdateDepartmentInput } from './dto/update-department.input';
+import { PaginatedDepartments } from './dto/department-pagination.type';
 
 @ApiTags('Department')
 @Resolver(() => Department)
@@ -35,9 +36,14 @@ export class DepartmentResolver {
   @ApiResponse({ status: 404, description: 'Not Found' })
   @ApiResponse({ status: 500, description: 'Internal Server Error' })
   @ApiBearerAuth()
-  @Query(() => [Department])
-  GetDepartments(): Promise<Department[]> {
-    return this.departmentService.getDepartments();
+  @Query(() => PaginatedDepartments)
+  async GetDepartments(
+    @Args('page', { type: () => Int, nullable: true, defaultValue: 1 })
+    page: number,
+    @Args('limit', { type: () => Int, nullable: true, defaultValue: 10 })
+    limit: number,
+  ): Promise<PaginatedDepartments> {
+    return this.departmentService.getDepartments(page, limit);
   }
 
   @ApiOperation({ summary: 'Update Department' })

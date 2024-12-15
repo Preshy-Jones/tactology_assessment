@@ -5,6 +5,7 @@ import { Department } from './entities/department.entity';
 import { SubDepartment } from './entities/sub-department.entity';
 import { CreateDepartmentInput } from './dto/create-department.input';
 import { UpdateDepartmentInput } from './dto/update-department.input';
+import { PaginatedDepartments } from './dto/department-pagination.type';
 
 @Injectable()
 export class DepartmentService {
@@ -26,8 +27,25 @@ export class DepartmentService {
     return this.departmentRepository.save(department);
   }
 
-  async getDepartments(): Promise<Department[]> {
-    return this.departmentRepository.find();
+  async getDepartments(
+    page: number,
+    limit: number,
+  ): Promise<PaginatedDepartments> {
+    const skip = (page - 1) * limit;
+
+    const [departments, total] = await this.departmentRepository.findAndCount({
+      skip,
+      take: limit,
+      relations: ['subDepartments'], // Ensure subDepartments are loaded
+    });
+
+    return {
+      departments,
+      total,
+      page,
+      limit,
+      totalPages: Math.ceil(total / limit),
+    };
   }
 
   async updateDepartment(input: UpdateDepartmentInput): Promise<Department> {
